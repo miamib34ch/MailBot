@@ -1,0 +1,9 @@
+version: '3.8'
+
+services:
+  mail_bot:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: mail_bot_image
+    restart: always
