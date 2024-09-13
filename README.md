@@ -1,5 +1,5 @@
 Add your mail and telegram data in config.py file.
 
-![image](https://github.com/user-attachments/assets/85b49b7e-0eef-4924-9087-754ca667fcf2)
+![image](https://github.com/user-attachments/assets/b5fd3c40-137c-4481-beae-91d3d2f198c0)
 
 Use docker-compose to start ``` docker-compose up --build -d ```
