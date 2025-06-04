@@ -65,34 +65,20 @@ def remove_replied_message(text):
 
 def remove_blank_space(text):
     """
-    Очищает текст, убирая лишние пробелы и перевод строки внутри абзацев,
-    оставляя не более одной пустой строки подряд между абзацами.
+    Очищает текст, убирая лишние пробелы в начале и конце строк,
+    оставляя не более одной пустой строки подряд.
     """
     lines = [line.strip() for line in text.split('\n')]
 
-    paragraphs = []
-    current_lines = []
-    for line in lines:
-        if line == '':
-            if current_lines:
-                paragraphs.append(' '.join(current_lines))
-                current_lines = []
-            paragraphs.append('')
-        else:
-            current_lines.append(line)
-
-    if current_lines:
-        paragraphs.append(' '.join(current_lines))
-
     cleaned_lines = []
     previous_empty = False
-    for p in paragraphs:
-        if p == '':
+    for line in lines:
+        if line == '':
             if not previous_empty:
                 cleaned_lines.append('')
                 previous_empty = True
         else:
-            cleaned_lines.append(p)
+            cleaned_lines.append(line)
             previous_empty = False
 
     return '\n'.join(cleaned_lines).strip()
