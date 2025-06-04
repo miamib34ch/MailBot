@@ -29,6 +29,8 @@ async def send_to_telegram(subject, from_, body, attachments=None):
 
     if attachments:
         for attachment in attachments:
+            if not attachment:
+                continue
             attachment.seek(0)
             if attachment.name.lower().endswith((".jpg", ".jpeg", ".png")):
                 await bot.send_photo(chat_id=TELEGRAM_CHANNEL, photo=attachment)

@@ -65,22 +65,23 @@ def remove_replied_message(text):
 
 def remove_blank_space(text):
     """
-    Очищает текст, оставляя не более одной пустой строки подряд.
+    Очищает текст, оставляя не более одной пустой строки подряд и убирая
+    лишние пробелы по краям строк.
     """
-    lines = text.split('\n')
+    lines = [line.strip() for line in text.split('\n')]
     cleaned_lines = []
-    empty_count = 0
+    previous_empty = False
 
     for line in lines:
-        if line.strip() == '':
-            empty_count += 1
-            if empty_count <= 1:
-                cleaned_lines.append(line)
+        if line == '':
+            if not previous_empty:
+                cleaned_lines.append('')
+                previous_empty = True
         else:
-            empty_count = 0
+            previous_empty = False
             cleaned_lines.append(line)
 
-    return '\n'.join(cleaned_lines)
+    return '\n'.join(cleaned_lines).strip()
 
 
 def clean_html(html_content):
@@ -92,7 +93,7 @@ def clean_html(html_content):
     links = extract_links(soup)
 
     # Удаляем все html теги, кроме текста + сообщение на которое ответили + лишний пустые строки
-    cleaned_text = soup.get_text(separator='\n')
+    cleaned_text = soup.get_text(separator='\n', strip=True)
     cleaned_text = remove_replied_message(cleaned_text)
     cleaned_text = remove_blank_space(cleaned_text)
 
@@ -163,7 +164,9 @@ def extract_multipart_content(msg):
         if content_type == "text/html" and not content_disposition:
             html_body = decode_html_part(part)
         elif "attachment" in content_disposition:
-            attachments.append(decode_attachment(part))
+            attachment = decode_attachment(part)
+            if attachment:
+                attachments.append(attachment)
         elif content_type.startswith("image/") and not content_disposition:
             attachments.append(decode_inline_image(part))
 
