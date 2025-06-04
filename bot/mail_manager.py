@@ -65,23 +65,24 @@ def remove_replied_message(text):
 
 def remove_blank_space(text):
     """
-    Очищает текст, убирая лишние пробелы в начале и конце строк,
-    оставляя не более одной пустой строки подряд.
+    Нормализует абзацы: строки внутри абзаца объединяются через пробел,
+    а между абзацами остаётся только один пустой ряд.
     """
     lines = [line.strip() for line in text.split('\n')]
 
-    cleaned_lines = []
-    previous_empty = False
+    paragraphs = []
+    current = []
     for line in lines:
-        if line == '':
-            if not previous_empty:
-                cleaned_lines.append('')
-                previous_empty = True
+        if line:
+            current.append(line)
         else:
-            cleaned_lines.append(line)
-            previous_empty = False
+            if current:
+                paragraphs.append(' '.join(current))
+                current = []
+    if current:
+        paragraphs.append(' '.join(current))
 
-    return '\n'.join(cleaned_lines).strip()
+    return '\n\n'.join(paragraphs).strip()
 
 
 def clean_html(html_content):
