@@ -1,7 +1,7 @@
 from telegram import Bot
 from html import escape
 
-from config import TELEGRAM_TOKEN, TELEGRAM_CHANNEL
+from .config import TELEGRAM_TOKEN, TELEGRAM_CHANNEL
 
 
 async def send_to_telegram(subject, from_, body, attachments=None):

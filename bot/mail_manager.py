@@ -7,8 +7,8 @@ import io
 import re
 from bs4 import BeautifulSoup
 
-from telegram_sender import send_to_telegram
-from config import IMAP_SERVER, EMAIL_ACCOUNT, EMAIL_PASSWORD
+from .telegram_sender import send_to_telegram
+from .config import IMAP_SERVER, EMAIL_ACCOUNT, EMAIL_PASSWORD
 
 
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
