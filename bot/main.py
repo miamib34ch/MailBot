@@ -1,7 +1,7 @@
 import asyncio
 
-from .mail_manager import check_email
-from .config import CHECK_TIMING_SECONDS
+from mail_manager import check_email
+from config import CHECK_TIMING_SECONDS
 
 
 async def main():
