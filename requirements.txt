@@ -1,3 +1,5 @@
 python-telegram-bot
 beautifulsoup4
 pytz
+pytest
+pytest-asyncio
